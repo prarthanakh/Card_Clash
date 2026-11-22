@@ -8,45 +8,47 @@ public class Hand {
     private ArrayList<Card> cards;
 
     public Hand() {
-        // TODO
+        cards=new ArrayList<>();
     }
 
-    /** Returns false when the hand is full. */
     public boolean addCard(Card card) {
-        // TODO
+     if(cards.size()>=Player.HAND_LIMIT){
         return false;
+     }
+        cards.add(card);
+        return true;
     }
 
     public void removeCard(Card card) {
-        // TODO
+       cards.remove(card);
     }
 
     public boolean contains(Card card) {
-        // TODO
-        return false;
+        
+        return cards.contains(card);
     }
 
     public Card getCardAt(int index) {
-        // TODO
-        return null;
+        
+        return cards.get(index);
     }
 
     public List<Card> getCards() {
-        // TODO
-        return null;
+       
+       return new ArrayList<>(cards);
     }
 
     public int size() {
-        // TODO
-        return 0;
+        return cards.size();
     }
 
     public boolean isFull() {
-        // TODO
-        return false;
+        
+        return cards.size()>=Player.HAND_LIMIT;
     }
 
     public void clear() {
-        // TODO
+        cards.clear();
     }
 }
+

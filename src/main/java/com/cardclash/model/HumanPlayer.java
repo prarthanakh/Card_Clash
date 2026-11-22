@@ -8,20 +8,21 @@ public class HumanPlayer extends Player {
 
     public HumanPlayer(String name, Deck deck) {
         super(name, deck);
-        // TODO
+        
     }
 
     @Override
     public void takeTurn(Game game) {
-        // TODO
+        // Human actions are handled by the console or UI.
+        
     }
 
     public int getDatabaseId() {
-        // TODO
-        return 0;
+      
+        return databaseId;
     }
 
     public void setDatabaseId(int id) {
-        // TODO
+        this.databaseId = id;
     }
 }

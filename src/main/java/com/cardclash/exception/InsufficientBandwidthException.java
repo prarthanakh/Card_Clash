@@ -7,22 +7,23 @@ public class InsufficientBandwidthException extends Exception {
     private int available;
 
     public InsufficientBandwidthException(int required, int available) {
-        // TODO
+       this.required = required;
+this.available = available;
     }
 
     public int getRequired() {
         // TODO
-        return 0;
+        return required;
     }
 
     public int getAvailable() {
         // TODO
-        return 0;
+        return available;
     }
 
     @Override
     public String getMessage() {
         // TODO
-        return null;
+        return "Insufficient bandwidth: required " + required + ", available " + available;
     }
 }

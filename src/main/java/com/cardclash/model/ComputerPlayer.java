@@ -9,26 +9,30 @@ public class ComputerPlayer extends Player {
 
     public ComputerPlayer(String name, Deck deck, Strategy strategy) {
         super(name, deck);
-        // TODO
+       this.strategy = strategy;
+       
     }
 
     @Override
     public void takeTurn(Game game) {
-        // TODO
+        while (game.runComputerStep()) {
+    // Keep taking steps while a card is played.
+}
+       
     }
 
-    /** Returns null when there is nothing left worth playing. */
     public Card chooseNextCard(Player opponent) {
-        // TODO
-        return null;
+       
+        return strategy.chooseCard(this, opponent);
     }
 
     public Strategy getStrategy() {
-        // TODO
-        return null;
+       
+        return strategy;
     }
 
     public void setStrategy(Strategy strategy) {
-        // TODO
+        this.strategy = strategy;
+
     }
 }

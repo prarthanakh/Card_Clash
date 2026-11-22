@@ -26,94 +26,142 @@ public abstract class Player implements Playable {
     private Hand hand;
 
     public Player(String name, Deck deck) {
-        // TODO
+        this(name, deck, MAX_INTEGRITY);
+
     }
 
     public Player(String name, Deck deck, int startingIntegrity) {
-        // TODO
+        this.name=name;
+        this.deck=deck;
+        this.integrity=startingIntegrity;
+        this.hand=new Hand();
+
     }
 
     public void startTurn() {
-        // TODO: maxBandwidth +1 (cap 10), refill, clear firewall, draw 1
+       
+        if(maxBandwidth<MAX_BANDWIDTH)
+          {  maxBandwidth++;
+            
+        }
+        bandwidth=maxBandwidth;
+        clearFirewall();
+        drawCard();
+        
     }
 
     public void endTurn() {
-        // TODO
+      bandwidth=0;
     }
 
     public void drawStartingHand() {
-        // TODO
+      drawCard(STARTING_HAND_SIZE);
     }
 
     public void drawCard() {
-        // TODO
+        Card card = deck.drawCard();
+        if(card==null){
+            return;
+        }
+        if(hand.size() < HAND_LIMIT) {
+           hand.addCard(card);}
+           else
+              {
+                deck.discard(card);
+        }
     }
 
     public void drawCard(int count) {
-        // TODO
+       for(int i=0;i<count;i++)
+       {
+        drawCard();
+       }
     }
 
     public CardResult playCard(Card card, Player opponent)
             throws InsufficientBandwidthException, InvalidMoveException {
-        // TODO
-        return null;
+     if (!hand.contains(card)) {
+    throw new InvalidMoveException("Card is not in your hand");
+}
+spendBandwidth(card.getCost());
+CardResult result = card.play(this, opponent);
+hand.removeCard(card);
+deck.discard(card);
+        return result;
     }
 
     public void spendBandwidth(int amount) throws InsufficientBandwidthException {
-        // TODO
+        if (amount > bandwidth) {
+            throw new InsufficientBandwidthException(amount, bandwidth);
+        }
+        bandwidth -= amount;
     }
 
     public void gainBandwidth(int amount) {
-        // TODO
+        bandwidth += amount;
+        if (bandwidth > MAX_BANDWIDTH) {
+            bandwidth = MAX_BANDWIDTH;
+        }
     }
 
     /** Returns the Integrity actually lost. */
     public int takeDamage(int amount) {
-        // TODO
-        return 0;
+        
+        return takeDamage(amount, false);
     }
 
     /** Returns the Integrity actually lost. */
     public int takeDamage(int amount, boolean ignoreFirewall) {
-        // TODO
-        return 0;
+      int damage = Math.max(0, amount);
+
+if (!ignoreFirewall) {
+    int absorbed = Math.min(firewall, damage);
+    firewall -= absorbed;
+    damage -= absorbed;
+}
+
+int oldIntegrity = integrity;
+integrity = Math.max(0, integrity - damage);
+
+return oldIntegrity - integrity;
     }
 
     public void heal(int amount) {
-        // TODO
+       integrity = Math.min(MAX_INTEGRITY, integrity + amount);
     }
 
     public void addFirewall(int amount) {
-        // TODO
+        firewall += amount;
     }
 
     public void clearFirewall() {
-        // TODO
+        firewall = 0;
     }
 
     public boolean isAlive() {
-        // TODO
-        return false;
+        return integrity > 0;
     }
 
-    public void setDoubleNextVirus(boolean value) { }   // TODO
-    public boolean isDoubleNextVirus() { return false; } // TODO
-    public void setSkipNextTurn(boolean value) { }      // TODO
-    public boolean isSkipNextTurn() { return false; }   // TODO
+    public void setDoubleNextVirus(boolean value) {
+        doubleNextVirus = value;
+     }   
+    public boolean isDoubleNextVirus() { return doubleNextVirus; } 
+    public void setSkipNextTurn(boolean value) {
+        skipNextTurn = value;
+     }      
+    public boolean isSkipNextTurn() { return skipNextTurn; }   
 
-    public String getName() { return null; }            // TODO
-    public int getIntegrity() { return 0; }             // TODO
-    public int getFirewall() { return 0; }              // TODO
-    public int getBandwidth() { return 0; }             // TODO
-    public int getMaxBandwidth() { return 0; }          // TODO
-    public Hand getHand() { return null; }              // TODO
-    public Deck getDeck() { return null; }              // TODO
+    public String getName() { return name; }            
+    public int getIntegrity() { return integrity; }             
+    public int getFirewall() { return firewall; }              
+    public int getBandwidth() { return bandwidth; }             
+    public int getMaxBandwidth() { return maxBandwidth; }          
+    public Hand getHand() { return hand; }              
+    public Deck getDeck() { return deck; }             
 
     @Override
     public String toString() {
-        // TODO
-        return null;
+       return name + " - Integrity: " + integrity + " , Firewall: " + firewall  + " , Bandwidth: " + bandwidth + "/" + maxBandwidth;
     }
-
-    // takeTurn(Game game) comes from Playable: define it in the subclasses.
 }
+       

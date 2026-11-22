@@ -2,6 +2,8 @@ package com.cardclash.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+
 
 public class Deck {
 
@@ -9,43 +11,56 @@ public class Deck {
     private ArrayList<Card> discardPile;
 
     public Deck(List<Card> cards) {
-        // TODO
+        drawPile=new ArrayList<>(cards);
+        discardPile=new ArrayList<>();
+        shuffle();
     }
 
     public void shuffle() {
-        // TODO
+        Collections.shuffle(drawPile);
     }
 
     public Card drawCard() {
-        // TODO
-        return null;
+        if(drawPile.isEmpty()){
+            reshuffleDiscardPile();
+        }
+        if(drawPile.isEmpty()){
+            return null;
+        }
+        return drawPile.remove(drawPile.size()-1);
     }
 
     public List<Card> drawCard(int count) {
-        // TODO
-        return null;
+       List<Card> drawn=new ArrayList<>();
+       for(int i=0;i<count;i++){
+        Card card=drawCard();
+        if(card==null){
+            break;
+        }
+        drawn.add(card);
     }
+    return drawn;
+        }
 
     public void discard(Card card) {
-        // TODO
+        discardPile.add(card);
     }
 
     private void reshuffleDiscardPile() {
-        // TODO
+        drawPile.addAll(discardPile);
+        discardPile.clear();
+        shuffle();
     }
 
     public int size() {
-        // TODO
-        return 0;
+        return drawPile.size() + discardPile.size();
     }
 
     public int getDiscardSize() {
-        // TODO
-        return 0;
+        return discardPile.size();
     }
 
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return drawPile.isEmpty() && discardPile.isEmpty();
     }
 }

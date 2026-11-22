@@ -4,6 +4,6 @@ package com.cardclash.exception;
 public class InvalidMoveException extends Exception {
 
     public InvalidMoveException(String reason) {
-        // TODO
+        super(reason);
     }
 }
