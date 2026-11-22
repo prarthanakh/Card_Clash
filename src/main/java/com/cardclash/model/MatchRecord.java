@@ -16,14 +16,20 @@ public class MatchRecord {
 
     public MatchRecord(int matchId, int playerId, Difficulty difficulty, GameResult result,
                        int turns, int finalIntegrity, String playedAt) {
-        // TODO
+       this.matchId = matchId;
+this.playerId = playerId;
+this.difficulty = difficulty;
+this.result = result;
+this.turns = turns;
+this.finalIntegrity = finalIntegrity;
+this.playedAt = playedAt;
     }
 
-    public int getMatchId() { return 0; }              // TODO
-    public int getPlayerId() { return 0; }             // TODO
-    public Difficulty getDifficulty() { return null; } // TODO
-    public GameResult getResult() { return null; }     // TODO
-    public int getTurns() { return 0; }                // TODO
-    public int getFinalIntegrity() { return 0; }       // TODO
-    public String getPlayedAt() { return null; }       // TODO
+    public int getMatchId() { return matchId; }             
+    public int getPlayerId() { return playerId; }            
+    public Difficulty getDifficulty() { return difficulty; }
+    public GameResult getResult() { return result; }    
+    public int getTurns() { return turns; }               
+    public int getFinalIntegrity() { return finalIntegrity; }      
+    public String getPlayedAt() { return playedAt; }      
 }

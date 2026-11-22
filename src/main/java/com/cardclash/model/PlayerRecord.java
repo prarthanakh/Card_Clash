@@ -1,6 +1,6 @@
 package com.cardclash.model;
 
-/** One row of the players table, used by the leaderboard. */
+
 public class PlayerRecord implements Comparable<PlayerRecord> {
 
     private int playerId;
@@ -9,28 +9,31 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
     private int losses;
 
     public PlayerRecord(int playerId, String username, int wins, int losses) {
-        // TODO
+        this.playerId = playerId;
+        this.username = username;
+        this.wins = wins;
+        this.losses = losses;
     }
 
-    public int getPlayerId() { return 0; }        // TODO
-    public String getUsername() { return null; }  // TODO
-    public int getWins() { return 0; }            // TODO
-    public int getLosses() { return 0; }          // TODO
+    public int getPlayerId() { return this.playerId; }
+    public String getUsername() { return this.username; }
+    public int getWins() { return this.wins; }
+    public int getLosses() { return this.losses; }
 
     public double getWinRate() {
-        // TODO
-        return 0.0;
+       int gamesPlayed = wins + losses;
+return gamesPlayed == 0 ? 0.0 : (double) wins / gamesPlayed;
+      
     }
 
     @Override
     public int compareTo(PlayerRecord other) {
-        // TODO: more wins first
-        return 0;
+      return Integer.compare(other.wins, this.wins);
     }
 
     @Override
     public String toString() {
-        // TODO
-        return null;
+       
+       return username + " (Wins: " + wins + ", Losses: " + losses + ")";
     }
 }
