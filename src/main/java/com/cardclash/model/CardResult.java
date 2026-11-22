@@ -10,17 +10,45 @@ public class CardResult {
     private String message;
 
     public CardResult(String message) {
-        // TODO
+       this.message=message;
     }
 
-    public int getDamageDealt() { return 0; }          // TODO
-    public void setDamageDealt(int damageDealt) { }    // TODO
-    public int getHealthRestored() { return 0; }       // TODO
-    public void setHealthRestored(int healthRestored) { } // TODO
-    public int getFirewallGained() { return 0; }       // TODO
-    public void setFirewallGained(int firewallGained) { } // TODO
-    public int getBandwidthGained() { return 0; }      // TODO
-    public void setBandwidthGained(int bandwidthGained) { } // TODO
-    public String getMessage() { return null; }        // TODO
-    public void setMessage(String message) { }         // TODO
+    public int getDamageDealt()
+     
+    { return damageDealt; 
+
+    }          
+    public void setDamageDealt(int damageDealt)
+     { 
+        this.damageDealt=damageDealt;
+
+     }    
+    public int getHealthRestored()
+     { 
+        return healthRestored; 
+    }     
+    public void setHealthRestored(int healthRestored) {
+        this.healthRestored=healthRestored;
+     } 
+    public int getFirewallGained()
+     { 
+        return firewallGained;
+     }       
+    public void setFirewallGained(int firewallGained) {
+        this.firewallGained=firewallGained;
+     } 
+    public int getBandwidthGained()
+     { 
+        return bandwidthGained;
+      }      
+    public void setBandwidthGained(int bandwidthGained) { 
+        this.bandwidthGained=bandwidthGained;
+    } 
+    public String getMessage()
+     { 
+        return message;
+      }        
+    public void setMessage(String message) {
+        this.message=message;
+     }         
 }

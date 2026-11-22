@@ -4,17 +4,21 @@ public class PatchCard extends Card {
 
     public PatchCard(int id, String name, int cost, int healAmount, String description) {
         super(id, name, CardType.PATCH, cost, healAmount, description);
-        // TODO
+        
     }
 
     @Override
     public CardResult play(Player user, Player target) {
-        // TODO
-        return null;
+       int before=user.getIntegrity();
+       user.heal(getHealAmount());
+       int restored=user.getIntegrity()-before;
+       CardResult result=new CardResult(user.getName() + "restored" + restored + "Integrity.");
+       result.setHealthRestored(restored);
+       return result;
     }
 
     public int getHealAmount() {
-        // TODO
-        return 0;
+    
+        return getPower();
     }
 }
