@@ -7,11 +7,13 @@ public enum Difficulty {
     private String label;
 
     private Difficulty(String label) {
-        // TODO
+        this.label = label;
     }
 
     public String getLabel() {
-        // TODO
-        return null;
+        return label;
     }
 }
+
+    
+
