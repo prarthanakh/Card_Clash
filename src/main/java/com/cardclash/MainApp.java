@@ -446,17 +446,10 @@ public class MainApp extends Application {
         menuButton.getStyleClass().add("menu-button-small");
         menuButton.setOnAction(event -> scene.setRoot(createMainMenu()));
 
-        VBox handSection = new VBox(6, handHeader, handScroll);
-        handSection.getStyleClass().add("hand-panel");
-        HBox.setHgrow(handSection, Priority.ALWAYS);
-
-        VBox controls = new VBox(12, endTurnButton, menuButton);
-        controls.setAlignment(Pos.BOTTOM_CENTER);
-        controls.setPadding(new Insets(0, 4, 8, 4));
-        controls.setMinWidth(180);
-
-        HBox bottom = new HBox(12, handSection, controls);
-        bottom.setAlignment(Pos.BOTTOM_CENTER);
+        HBox controls = new HBox(12, menuButton, endTurnButton);
+        controls.setAlignment(Pos.CENTER_RIGHT);
+        VBox bottom = new VBox(6, handHeader, handScroll, controls);
+        bottom.getStyleClass().add("hand-panel");
         root.setBottom(bottom);
 
         return root;
