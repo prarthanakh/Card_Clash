@@ -71,12 +71,21 @@ while (!game.isGameOver()) {
                 System.out.println(e.getMessage());
             }
         }
-    } else {
-        computer.takeTurn(game);
-        if (!game.isGameOver()) {
-            game.endTurn();
-        }
+    }  else {
+    System.out.println("Computer's turn:");
+
+    int previousLogSize = game.getCombatLog().size();
+    computer.takeTurn(game);
+
+    List<String> log = game.getCombatLog();
+    for (int i = previousLogSize; i < log.size(); i++) {
+        System.out.println(log.get(i));
     }
+
+    if (!game.isGameOver()) {
+        game.endTurn();
+    }
+}
 }
 
 System.out.println(game.getWinner().getName() + " wins!");

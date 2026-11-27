@@ -37,10 +37,19 @@ this.cardsPlayedByHuman = new HashMap<>();
     }
 
     public void startGame() {
+        startGame(coinFlip());
+    }
+
+    /** Starts the game with the player selected by the setup screen. */
+    public void startGame(Player startingPlayer) {
+        if (startingPlayer != human && startingPlayer != computer) {
+            throw new IllegalArgumentException("Starting player must belong to this game.");
+        }
+
  human.drawStartingHand();
 computer.drawStartingHand();
 
-currentPlayer = coinFlip();
+currentPlayer = startingPlayer;
 turnNumber = 1;
 gameOver = false;
 winner = null;
