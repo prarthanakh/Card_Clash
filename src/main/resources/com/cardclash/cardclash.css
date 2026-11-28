@@ -1,5 +1,5 @@
 .root {
-    -fx-font-family: "Bahnschrift", "Segoe UI", sans-serif;
+    -fx-font-family: "DejaVu Sans Mono", "monospace";
     -fx-text-fill: #e7f7ff;
     -fx-background-color: #050b18;
 }
@@ -173,6 +173,11 @@
     -fx-font-weight: bold;
 }
 
+.clash-heading {
+    -fx-background-color: #10263c;
+    -fx-padding: 2px 14px;
+}
+
 .player-panel-opponent .player-heading {
     -fx-text-fill: #ff7777;
 }
@@ -243,19 +248,27 @@
 }
 
 .arena-panel {
-    -fx-background-color: linear-gradient(to bottom right, rgba(13, 42, 67, 0.96), rgba(9, 17, 39, 0.98));
+    -fx-background-color: linear-gradient(to bottom right,
+            rgba(20, 57, 79, 0.96), rgba(9, 17, 39, 0.98));
     -fx-border-color: #247d9e;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(22, 183, 222, 0.24), 22, 0.18, 0, 4);
 }
 
 .battle-slot {
-    -fx-min-width: 150px;
-    -fx-min-height: 110px;
+    -fx-min-width: 170px;
+    -fx-min-height: 190px;
     -fx-alignment: center;
     -fx-text-alignment: center;
     -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(38, 189, 226, 0.2), 12, 0.18, 0, 3);
+}
+
+.battle-placeholder {
+    -fx-text-fill: #f9f5f5;
 }
 
 .player-slot {
@@ -390,17 +403,20 @@
 
 .card-art-panel {
     -fx-min-height: 48px;
-    -fx-background-color: rgba(5, 13, 30, 0.82);
+    -fx-background-color: linear-gradient(to bottom,
+            rgba(44, 78, 103, 0.38), rgba(5, 13, 30, 0.94));
     -fx-border-color: #496783;
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.65), 8, 0.18, 0, 2);
 }
 
 .card-art-symbol {
     -fx-font-family: "Segoe UI Symbol", "Segoe UI", sans-serif;
-    -fx-font-size: 42px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-text-fill: #b7f6ff;
+    -fx-effect: dropshadow(gaussian, rgba(95, 225, 255, 0.65), 12, 0.3, 0, 0);
 }
 
 .playing-card-description {
@@ -426,6 +442,7 @@
 .playing-card.card-virus {
     -fx-border-color: #ff626e;
     -fx-background-color: linear-gradient(to bottom, #3b1728, #161629);
+    -fx-effect: dropshadow(gaussian, rgba(255, 82, 106, 0.28), 12, 0.16, 0, 4);
 }
 
 .card-virus .card-art-panel {
@@ -440,6 +457,7 @@
 .playing-card.card-firewall {
     -fx-border-color: #53dafa;
     -fx-background-color: linear-gradient(to bottom, #10374b, #121c32);
+    -fx-effect: dropshadow(gaussian, rgba(83, 218, 250, 0.28), 12, 0.16, 0, 4);
 }
 
 .card-firewall .card-art-panel {
@@ -450,6 +468,7 @@
 .playing-card.card-patch {
     -fx-border-color: #59e69d;
     -fx-background-color: linear-gradient(to bottom, #103d36, #14252e);
+    -fx-effect: dropshadow(gaussian, rgba(89, 230, 157, 0.27), 12, 0.16, 0, 4);
 }
 
 .card-patch .card-art-panel {
@@ -464,6 +483,7 @@
 .playing-card.card-exploit {
     -fx-border-color: #d16bff;
     -fx-background-color: linear-gradient(to bottom, #341d4a, #19172f);
+    -fx-effect: dropshadow(gaussian, rgba(209, 107, 255, 0.3), 12, 0.16, 0, 4);
 }
 
 .card-exploit .card-art-panel {
@@ -473,6 +493,22 @@
 
 .card-exploit .card-art-symbol {
     -fx-text-fill: #e098ff;
+}
+
+.playing-card.card-virus:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 82, 106, 0.8), 20, 0.3, 0, 0);
+}
+
+.playing-card.card-firewall:hover {
+    -fx-effect: dropshadow(gaussian, rgba(83, 218, 250, 0.8), 20, 0.3, 0, 0);
+}
+
+.playing-card.card-patch:hover {
+    -fx-effect: dropshadow(gaussian, rgba(89, 230, 157, 0.8), 20, 0.3, 0, 0);
+}
+
+.playing-card.card-exploit:hover {
+    -fx-effect: dropshadow(gaussian, rgba(209, 107, 255, 0.8), 20, 0.3, 0, 0);
 }
 
 .end-turn-button {

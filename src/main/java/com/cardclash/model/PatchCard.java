@@ -12,7 +12,7 @@ public class PatchCard extends Card {
        int before=user.getIntegrity();
        user.heal(getHealAmount());
        int restored=user.getIntegrity()-before;
-       CardResult result=new CardResult(user.getName() + "restored" + restored + "Integrity.");
+       CardResult result = new CardResult(user.getName() + " restored " + restored + " Integrity.");
        result.setHealthRestored(restored);
        return result;
     }

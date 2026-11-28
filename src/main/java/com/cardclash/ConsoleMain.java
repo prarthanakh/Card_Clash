@@ -94,12 +94,12 @@ System.out.println(game.getWinner().getName() + " wins!");
     private static List<Card> buildHardCodedCards() {
         
         List<Card> cards = new ArrayList<>();
-cards.add(new VirusCard(1, "Ping Flood", 1, 3, "Deal 3 damage"));
-cards.add(new FirewallCard(2, "Basic Firewall", 1, 3, "Gain 3 Firewall"));
-cards.add(new PatchCard(3, "Hotfix", 2, 5, "Heal 5 Integrity"));
-cards.add(new VirusCard(4, "SQL Injection", 3, 7, "Deal 7 damage"));
+cards.add(new VirusCard(1, "Ping Flood", 1, 3, " Deal 3 damage"));
+cards.add(new FirewallCard(2, "Basic Firewall", 1, 3, " Gain 3 Firewall"));
+cards.add(new PatchCard(3, "Hotfix", 2, 5, " Heal 5 Integrity"));
+cards.add(new VirusCard(4, "SQL Injection", 3, 7, " Deal 7 damage"));
 cards.add(new ExploitCard(5, "Brute Force", 2,
-        ExploitEffect.BRUTE_FORCE, "Double your next Virus"));
+        ExploitEffect.BRUTE_FORCE, " Double your next Virus"));
 
 return cards;
     }

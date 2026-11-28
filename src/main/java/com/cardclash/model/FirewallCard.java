@@ -11,7 +11,7 @@ public class FirewallCard extends Card {
     public CardResult play(Player user, Player target) {
        int amount=getFirewallAmount();
        user.addFirewall(amount);
-       CardResult result=new CardResult(user.getName() + "gained" + amount + "Firewall.");
+       CardResult result = new CardResult(user.getName() + " gained " + amount + " Firewall.");
        result.setFirewallGained(amount);
        return result;
     }

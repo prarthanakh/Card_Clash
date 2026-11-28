@@ -15,7 +15,7 @@ public class VirusCard extends Card {
             user.setDoubleNextVirus(false);
         }
         int actualDamage=target.takeDamage(damage);
-        CardResult result=new CardResult(getName() + "dealt" + actualDamage + "damage");
+        CardResult result = new CardResult(getName() + " dealt " + actualDamage + " damage.");
         result.setDamageDealt(actualDamage);
        return result;
     }

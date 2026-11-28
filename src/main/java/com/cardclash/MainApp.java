@@ -67,8 +67,8 @@ public class MainApp extends Application {
     private Label turnPhase;
     private Label battleMessage;
     private Label handCountLabel;
-    private Label playerField;
-    private Label computerField;
+    private StackPane playerField;
+    private StackPane computerField;
 
     private Label humanIntegrityText;
     private Label humanFirewallText;
@@ -104,9 +104,7 @@ public class MainApp extends Application {
     }
 
     private Parent createMainMenu() {
-        Label kicker = new Label("NEURAL CARD BATTLEGROUND  //  SYSTEM ONLINE");
-        kicker.getStyleClass().add("menu-kicker");
-
+     
         Label cardTitle = new Label("CARD");
         cardTitle.getStyleClass().add("menu-title-cyan");
         Label clashTitle = new Label("CLASH");
@@ -115,19 +113,19 @@ public class MainApp extends Application {
         Label subtitle = new Label("BUILD YOUR TOOLKIT. BREAK THEIR FIREWALL.");
         subtitle.getStyleClass().add("menu-subtitle");
 
-        Button startButton = new Button("▶    START MATCH");
+        Button startButton = new Button("▶   START MATCH");
         startButton.getStyleClass().add("menu-button");
         startButton.setOnAction(event -> showMatchSetup());
 
-        Button instructionsButton = new Button("HOW TO PLAY");
+        Button instructionsButton = new Button("ⓘ  HOW TO PLAY");
         instructionsButton.getStyleClass().addAll("menu-button", "menu-button-secondary");
         instructionsButton.setOnAction(event -> scene.setRoot(createInstructionsScreen()));
 
-        Button leaderboardButton = new Button("♜    LEADERBOARD");
+        Button leaderboardButton = new Button("♜   LEADERBOARD");
         leaderboardButton.getStyleClass().addAll("menu-button", "menu-button-secondary");
         leaderboardButton.setOnAction(event -> showLeaderboard());
 
-        Button exitButton = new Button("⏻    EXIT");
+        Button exitButton = new Button("⏻   EXIT");
         exitButton.getStyleClass().addAll("menu-button", "menu-button-secondary");
         exitButton.setOnAction(event -> Platform.exit());
 
@@ -135,7 +133,7 @@ public class MainApp extends Application {
                 leaderboardButton, exitButton);
         buttons.setAlignment(Pos.CENTER);
 
-        VBox menu = new VBox(8, kicker, cardTitle, clashTitle, subtitle, buttons);
+        VBox menu = new VBox(8, cardTitle, clashTitle, subtitle, buttons);
         menu.setAlignment(Pos.CENTER);
         menu.setPadding(new Insets(42));
         menu.getStyleClass().add("menu-screen");
@@ -145,7 +143,7 @@ public class MainApp extends Application {
     private Parent createInstructionsScreen() {
         Label heading = new Label("HOW TO PLAY");
         heading.getStyleClass().add("setup-heading");
-        Label subtitle = new Label("QUICK FIELD GUIDE // READ BEFORE DEPLOYMENT");
+        Label subtitle = new Label("QUICK GUIDE ");
         subtitle.getStyleClass().add("menu-subtitle");
 
         HBox basics = new HBox(14,
@@ -380,12 +378,16 @@ public class MainApp extends Application {
         root.setTop(header);
 
         Label clashHeading = new Label("CLASH ZONE");
-        clashHeading.getStyleClass().add("section-title");
-        playerField = new Label("PLAYER FIELD\nWAITING FOR CARD");
+        clashHeading.getStyleClass().addAll("section-title", "clash-heading");
+        Label playerPlaceholder = new Label("PLAYER FIELD\nWAITING FOR CARD");
+        playerPlaceholder.getStyleClass().add("battle-placeholder");
+        playerField = new StackPane(playerPlaceholder);
         playerField.getStyleClass().addAll("battle-slot", "player-slot");
         Label versus = new Label("VS");
         versus.getStyleClass().add("versus-label");
-        computerField = new Label("ROGUE AI FIELD\nWAITING FOR CARD");
+        Label computerPlaceholder = new Label("ROGUE AI FIELD\nWAITING FOR CARD");
+        computerPlaceholder.getStyleClass().add("battle-placeholder");
+        computerField = new StackPane(computerPlaceholder);
         computerField.getStyleClass().addAll("battle-slot", "computer-slot");
         battleMessage = new Label("Choose a card to begin your move.");
         battleMessage.setWrapText(true);
@@ -393,12 +395,14 @@ public class MainApp extends Application {
 
         HBox battleSlots = new HBox(18, playerField, versus, computerField);
         battleSlots.setAlignment(Pos.CENTER);
-        battleSlots.setMinHeight(120);
+        battleSlots.setMinHeight(190);
         VBox arena = new VBox(12, clashHeading, battleSlots, battleMessage);
-        arena.setAlignment(Pos.CENTER);
+        arena.setAlignment(Pos.TOP_CENTER);
         arena.setPadding(new Insets(14));
+        VBox.setMargin(clashHeading, new Insets(4, 0, 4, 0));
         arena.setMaxWidth(Double.MAX_VALUE);
         arena.getStyleClass().add("arena-panel");
+        clashHeading.toFront();
         HBox.setHgrow(arena, Priority.ALWAYS);
 
         Label logHeading = new Label("TERMINAL LOG");
@@ -611,6 +615,19 @@ public class MainApp extends Application {
     }
 
     private Button createCardButton(Card card) {
+        VBox face = createCardFace(card);
+        Button button = new Button();
+        button.setGraphic(face);
+        button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        button.setPrefSize(160, 175);
+        button.setMinSize(155, 170);
+        button.getStyleClass().add("playing-card");
+        button.getStyleClass().add("card-" + card.getType().name().toLowerCase());
+        button.setOnAction(event -> playHumanCard(card));
+        return button;
+    }
+
+    private VBox createCardFace(Card card) {
         String description = card.getDescription() == null
                 ? "" : card.getDescription();
         Label cost = new Label("BW " + card.getCost());
@@ -645,16 +662,7 @@ public class MainApp extends Application {
         face.setAlignment(Pos.TOP_CENTER);
         face.setPrefSize(144, 154);
         face.getStyleClass().add("playing-card-face");
-
-        Button button = new Button();
-        button.setGraphic(face);
-        button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        button.setPrefSize(160, 175);
-        button.setMinSize(155, 170);
-        button.getStyleClass().add("playing-card");
-        button.getStyleClass().add("card-" + card.getType().name().toLowerCase());
-        button.setOnAction(event -> playHumanCard(card));
-        return button;
+        return face;
     }
 
     private String cardSymbol(Card card) {
@@ -702,14 +710,13 @@ public class MainApp extends Application {
     }
 
     private void showPlayedCard(Player player, Card card, CardResult result) {
-        Label field = player == game.getHuman() ? playerField : computerField;
-        field.setText(card.getName().toUpperCase()
-                + "\n" + card.getType().name() + "  |  COST " + card.getCost()
-                + " BW\n\n" + card.getDescription());
-        field.getStyleClass().removeAll(
-                "field-virus", "field-firewall", "field-patch", "field-exploit");
-        field.getStyleClass().add(
-                "field-" + card.getType().name().toLowerCase());
+        StackPane field = player == game.getHuman() ? playerField : computerField;
+        VBox cardView = createCardFace(card);
+        cardView.getStyleClass().addAll(
+                "playing-card", "card-" + card.getType().name().toLowerCase());
+        cardView.setPrefSize(160, 175);
+        cardView.setMinSize(155, 170);
+        field.getChildren().setAll(cardView);
         battleMessage.setText(result.getMessage());
     }
 
